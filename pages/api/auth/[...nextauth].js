@@ -20,5 +20,13 @@ export default NextAuth({
   },
 
   debug: true,
-  adapter: PrismaAdapter(prisma)
+  adapter: PrismaAdapter(prisma),
+
+  callbacks: {
+    session: async ({ session, user }) => {
+      session.user.id = user.id
+      session.user.isAdmin = user.isAdmin
+      return Promise.resolve(session)
+    },
+  },
 })
