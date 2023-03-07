@@ -7,7 +7,7 @@ export default async (req, res) => {
     }
     console.log(req.body.cart)
     const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
-    
+
     const stripe_session = await stripe.checkout.sessions.create({
         payment_method_types: ['card'],
         shipping_address_collection: {
@@ -17,7 +17,7 @@ export default async (req, res) => {
             return {
                 price_data: {
                     currency: 'gbp',
-                    product_data:{
+                    product_data: {
                         name: item.product.title,
                     },
                     unit_amount: item.product.price * 100,
