@@ -2,10 +2,23 @@ import Head from 'next/head'
 import prisma from 'lib/prisma'
 import { getProducts } from 'lib/data.js'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import localforage from 'localforage'
 
 export default function Home({ products }) {
   const [cart, setCart] = useState([])
+
+  useEffect(() => {
+    localforage.getItem('cart', function (err, value) {
+      if (value) {
+        setCart(value)
+      }
+    })
+  }, [])
+
+  useEffect(() => {
+    localforage.setItem('cart', cart)
+  }, [cart])
 
   return (
     <div>
@@ -38,7 +51,14 @@ export default function Home({ products }) {
                   quantity: {item.quantity}
                 </div>
               </div>
-            ))}{' '}
+            ))}
+
+            <button
+              className='mx-auto bg-black text-white px-3 py-1 my-4 text-sm justify-center flex'
+              onClick={() => setCart([])}
+            >
+              Clear cart
+            </button>
           </div>
         )}
 
@@ -46,7 +66,7 @@ export default function Home({ products }) {
           {products.map((product) => (
             <div className='mb-4 grid sm:grid-cols-2' key={product.id}>
               <div>
-                <Image src={`/` + product.image} width={'600'} height={'600'} alt = "Product image" />
+                <Image src={`/` + product.image} width={'600'} height={'600'} alt="Product image" />
               </div>
               <div className='sm:ml-10 mb-20 sm:mb-0'>
                 <h2 className='text-3xl font-extrabold'>{product.title}</h2>
