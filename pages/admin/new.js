@@ -66,7 +66,7 @@ export default function NewProduct() {
             className='border p-1 text-black '
           />
 
-          <div className='flex-1 mb-2'>Product price in $ (required)</div>
+          <div className='flex-1 mb-2'>Product price in £ (required)</div>
           <input
             pattern='^\d*(\.\d{0,2})?$'
             onChange={(e) => setPrice(e.target.value)}
