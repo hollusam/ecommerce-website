@@ -46,6 +46,7 @@ export default function Home({ products }) {
                     width={'50'}
                     height={'50'}
                     className=''
+                    alt='Product image'
                   />
                 </div>
                 <div className='mt-5 pl-4'>
