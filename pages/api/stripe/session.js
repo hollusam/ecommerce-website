@@ -20,7 +20,7 @@ export default async (req, res) => {
                     product_data: {
                         name: item.product.title,
                     },
-                    unit_amount: item.product.price * 100,
+                    unit_amount: item.product.price * 1,
                 },
                 quantity: item.quantity,
             }
